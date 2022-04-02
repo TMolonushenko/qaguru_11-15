@@ -1,45 +1,24 @@
 package qa.guru.owner.config;
 
-import java.net.MalformedURLException;
+import org.aeonbits.owner.Config;
+
 import java.net.URL;
-import java.util.Objects;
 
-public class WebDriverConfig {
+public interface WebDriverConfig extends Config {
 
-    public String getBaseUrl() {
-        String baseUrl = System.getProperty("baseUrl");//читаем значение
-        if (Objects.isNull(baseUrl)) {//обрабатываем дефолтное
-            baseUrl = "https://github.com";
-        }
-        return baseUrl;// конвертируем результат
-    }
+    @Key("baseUrl") // читаем значение
+    @DefaultValue("http://github.com") // обрабатываем дефолтное
+    String getBaseUrl(); // конвертируем результат
 
-    public boolean isRemote() {
-        String isRemote = System.getProperty("isRemote"); // читаем значение
-        if (Objects.isNull(isRemote)) { // обрабатываем дефолтное
-            return false;
-        }
-        return Boolean.parseBoolean(isRemote); // конывертируем результат
-    }
+    @Key("browser")
+    @DefaultValue("CHROME")
+    Browser getBrowser();
 
-    public Browser getBrowser() {
-        String browser = System.getProperty("browser");
-        if (Objects.isNull(browser)) {
-            browser = Browser.CHROME;
-        }
-        return Browser.valueOf(browser);
-    }
+    @Key("isRemote")
+    @DefaultValue("false")
+    boolean isRemote();
 
-    public URL getRemoteErl() { //для удаленного браузера, например, selenide
-        String remoteUrl = System.getProperty("remoteUrl");
-        if (Objects.isNull(remoteUrl)) {
-            return null;
-        }
-        try { // конвертируем результат
-            return new URL(remoteUrl);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+    @Key("remoteUrl")
+    URL getRemoteUrl();
 
-    }
 }
