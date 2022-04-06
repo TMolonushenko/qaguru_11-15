@@ -7,7 +7,7 @@ import java.util.List;
 public interface FruitsConfig extends Config {
 
     @Key("array")
-    String getFruitsArray();
+    String[] getFruitsArray();
 
     @Key("array-with-default")
     @DefaultValue("orange, apple")
@@ -17,6 +17,6 @@ public interface FruitsConfig extends Config {
     List<String> getFruitsList();
 
     @Separator(";")
-    @Key("list-with-default")
+    @Key("list-with-separator")
     List<String> getFruitsListWithSeparator();
 }
